@@ -94,7 +94,7 @@ update() {
 		done
 	fi
 	touch $LOCK
-	
+
 	for manager in "${!packageManagers[@]}"; do
 		echo "Updating $manager packages…"
 		eval "${packageManagers[$manager]}"
@@ -105,4 +105,4 @@ update() {
 	echo -e "\nDone!"
 }
 
-source ~/.extra-bashrc
+source ~/.extra_bashrc
