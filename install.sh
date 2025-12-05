@@ -21,9 +21,10 @@ else
 fi
 
 # Check if we're running from a git clone or need to clone to tmp
-if [[ -d ".git" ]] && [[ ${git config --get remote.origin.url} == "https://github.com/donnybeelo/dotfiles" ]]; then
+if [ -d ".git" ] && git config --get remote.origin.url | grep -q "donnybeelo/dotfiles"; then
 	DOTFILES_DIR="$(pwd)"
 else
+	rm -rf /tmp/dotfiles
 	git clone --depth 1 https://github.com/donnybeelo/dotfiles.git /tmp/dotfiles
 	DOTFILES_DIR="/tmp/dotfiles"
 fi
@@ -33,14 +34,14 @@ for file in "$DOTFILES_DIR"/*; do
 	if [[ ${filesToIgnore[@]} =~ $filename ]] || [[ ! -f "$file" ]]; then
 		continue
 	fi
-	if [[ "$DOTFILES_DIR" == "/tmp/dotfiles" ]]; then
+	if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 		cp "/tmp/dotfiles/$filename" "$HOME/.$filename"
 	else
 		ln -sf "$DOTFILES_DIR/$filename" "$HOME/$filename"
 	fi
 done
 
-if [[ "$DOTFILES_DIR" == "/tmp/dotfiles" ]]; then
+if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	cp -r /tmp/dotfiles/config/* $HOME/.config
 	cp /tmp/dotfiles/bashrc/bashrc_mold $HOME/.custom_bashrc
 	case "$distro" in
@@ -59,16 +60,13 @@ fi
 # Add custom bashrc sourcing if not already present
 if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
 	echo "source \$HOME/.custom_bashrc" >> "$HOME/.bashrc"
-fi
-
-if [[ "$distro" == "arch" ]]; then
-	
+fi	
 
 [ ! -d "$HOME/.complete_alias" ] && git clone --depth 1 https://github.com/cykerway/complete-alias.git ~/.complete_alias
 
 curl -fsSL https://bun.com/install | bash
 
 # Clean up if we cloned to tmp
-if [[ "$DOTFILES_DIR" == "/tmp/dotfiles" ]]; then
+if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	rm -rf /tmp/dotfiles
 fi
