@@ -38,7 +38,7 @@ for file in "$DOTFILES_DIR"/*; do
 	if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 		cp "/tmp/dotfiles/$filename" "$HOME/.$filename"
 	else
-		ln -sf "$DOTFILES_DIR/$filename" "$HOME/$filename"
+		ln -sf "$DOTFILES_DIR/$filename" "$HOME/.$filename"
 	fi
 done
 
