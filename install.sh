@@ -75,4 +75,6 @@ if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	rm -rf /tmp/dotfiles
 fi
 
-mkdir $HOME/git
+if [ ! -d "$HOME/git" ]; then
+	mkdir $HOME/git
+fi
