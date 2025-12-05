@@ -49,7 +49,7 @@ if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 		"debian") cp /tmp/dotfiles/bashrc/ubuntu_bashrc $HOME/.extra_bashrc ;;
 	esac
 else
-	ln -sf $DOTFILES_DIR/config/* $HOME/.config
+	ln -sf $DOTFILES_DIR/config/* $HOME/.config/
 	ln -sf $DOTFILES_DIR/bashrc/bashrc_mold $HOME/.custom_bashrc
 	case "$distro" in
 		"arch") ln -sf /tmp/dotfiles/bashrc/arch_bashrc $HOME/.extra_bashrc ;;
@@ -64,9 +64,14 @@ fi
 
 [ ! -d "$HOME/.complete_alias" ] && git clone --depth 1 https://github.com/cykerway/complete-alias.git ~/.complete_alias
 
-curl -fsSL https://bun.com/install | bash
+if ! command -v bun &> /dev/null; then
+	echo "Bun not found, installing Bun..."
+	curl -fsSL https://bun.com/install | bash
+fi
 
 # Clean up if we cloned to tmp
 if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	rm -rf /tmp/dotfiles
 fi
+
+mkdir $HOME/git
