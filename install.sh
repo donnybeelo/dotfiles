@@ -53,8 +53,8 @@ else
 	ln -sf $DOTFILES_DIR/config/* $HOME/.config/
 	ln -sf $DOTFILES_DIR/bashrc/bashrc_mold $HOME/.custom_bashrc
 	case "$distro" in
-		"arch") ln -sf /tmp/dotfiles/bashrc/arch_bashrc $HOME/.extra_bashrc ;;
-		"debian") ln -sf /tmp/dotfiles/bashrc/ubuntu_bashrc $HOME/.extra_bashrc ;;
+		"arch") ln -sf $DOTFILES_DIR/bashrc/arch_bashrc $HOME/.extra_bashrc ;;
+		"debian") ln -sf $DOTFILES_DIR/bashrc/ubuntu_bashrc $HOME/.extra_bashrc ;;
 	esac
 fi
 
