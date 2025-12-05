@@ -1,0 +1,79 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+	"git_panel": {
+  "sort_by_path": false
+ },
+ "agent_ui_font_size": 16.0,
+ "ui_font_family": ".ZedSans",
+ "tabs": {
+		"git_status": true
+	},
+	"features": {
+		"edit_prediction_provider": "copilot"
+	},
+	"telemetry": {
+		"diagnostics": false,
+		"metrics": false
+	},
+	"terminal": {
+		"font_size": 12.0,
+		"max_scroll_history_lines": 1000000
+	},
+	"agent": {
+		"inline_assistant_model": {
+   "provider": "copilot_chat",
+   "model": "claude-sonnet-4.5"
+  },
+  "default_profile": "write",
+		"default_model": {
+			"provider": "copilot_chat",
+			"model": "gemini-3-pro-preview"
+		},
+		"enabled": true,
+		"button": true,
+		"model_parameters": []
+	},
+	"scroll_sensitivity": 2.0,
+	"autosave": {
+		"after_delay": {
+			"milliseconds": 1000
+		}
+	},
+	"buffer_font_fallbacks": ["Menlo", "Monaco", "Courier New", "monospace"],
+	"buffer_font_family": "Fira Code",
+	"file_types": {
+		"netlogo": ["*.nlogo"]
+	},
+	"show_edit_predictions": true,
+	"hard_tabs": true,
+	"base_keymap": "VSCode",
+	"icon_theme": {
+		"mode": "system",
+		"light": "Zed (Default)",
+		"dark": "Zed (Default)"
+	},
+	"ui_font_size": 16,
+	"buffer_font_size": 12.0,
+	"theme": {
+		"mode": "system",
+		"light": "One Light",
+		"dark": "Carbonfox - opaque"
+	},
+	"agent_servers": {
+		"gemini": {
+			"ignore_system_version": true
+		}
+	},
+	"languages": {
+		"CSS": {
+			"language_servers": ["tailwindcss-language-server"]
+		}
+	}
+}

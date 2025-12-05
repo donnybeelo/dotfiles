@@ -1,0 +1,108 @@
+alias -- -='cd -'
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
+alias .......='cd ../../../../../../'
+alias ........='cd ../../../../../../../'
+alias .........='cd ../../../../../../../../'
+alias ipconfig='ifconfig'
+alias sudo='sudo '
+alias open="xdg-open 2>/dev/null"
+alias npm="bun"
+alias npx="bunx"
+alias expo='npx expo'
+
+export EDITOR=emacs
+
+mkd() {
+    str="$*"
+    mkdir -p "$str"
+    cd "$str"
+}
+
+repo() {
+    cd ~/git/"$1"
+}
+
+_repo_complete() {
+    local cur base_dir
+    cur="${COMP_WORDS[1]}"
+    base_dir=~/git/
+
+    # Generate a list of subdirectories without the full path
+    COMPREPLY=( $(compgen -W "$(find "$base_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)" -- "$cur") )
+}
+
+complete -F _repo_complete repo
+
+DaySuffix() {
+  case `date +%-d` in
+    1|21|31) echo "st";;
+    2|22)    echo "nd";;
+    3|23)    echo "rd";;
+    *)       echo "th";;
+  esac
+}
+
+date "+  %-l:%M%p - %a %-d`DaySuffix` %b %Y"
+
+export PIP_BREAK_SYSTEM_PACKAGES=1
+
+complete -F _complete_alias i
+
+clone() {
+	cd ~/git
+	args=""; src=""; dest=""
+	for arg; do
+		if [[ $arg =~ ^- ]]; then
+			args+=" $arg"
+		elif [[ $src == "" ]]; then
+			src="$arg"
+		elif [[ $dest == "" ]]; then
+			dest="$arg"
+		else
+			echo "ERROR: too many positional arguments."; return 1
+		fi
+	done
+	args=$(echo "$args" | sed 's/^\ *//')
+	if [[ $src =~ ^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$ ]]; then
+		src="https://github.com/$src"
+	fi
+	git clone $args $src $dest
+	if [[ ! -z "$dest" ]]; then
+		cd "$dest"
+	else
+		lastarg="$(basename $src)"
+	    lastarg="${lastarg%.git}"
+		cd "$lastarg"
+	fi
+}
+
+update() {
+	LOCK=/var/tmp/updatelock
+	if [ -f $LOCK ]; then
+		echo "Update command already running! If you believe this to be false, consider removing the $LOCK file."
+		while true; do
+			read -p "Remove lock file and update anyway? [y/N]: " yn
+			echo ""
+			case $yn in
+				[Nn]*|"" ) return 1;;
+				[Yy]* ) rm $LOCK; break;;
+			esac
+		done
+	fi
+	touch $LOCK
+	
+	for manager in "${!packageManagers[@]}"; do
+		echo "Updating $manager packages…"
+		eval "${packageManagers[$manager]}"
+		echo ""
+	done
+
+	rm $LOCK
+	echo -e "\nDone!"
+}
+
+source ~/.extra-bashrc

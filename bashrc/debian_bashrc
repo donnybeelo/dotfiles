@@ -1,0 +1,3 @@
+alias i="sudo apt install"
+
+declare -A packageManagers=( ["apt"]="sudo apt update && sudo apt upgrade -y" ["Snap"]="sudo snap refresh" ["Flatpak"]="flatpak update -y")

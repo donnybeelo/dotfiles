@@ -1,0 +1,46 @@
+[
+	{
+		"label": "Open SourceGit",
+		"command": "/usr/bin/sourcegit",
+		"args": [
+			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+		],
+		"use_new_terminal": false,
+		"allow_concurrent_runs": false,
+		"reveal": "never",
+		"hide": "always",
+		"shell": "system",
+		"show_summary": false,
+		"show_command": false
+	},
+	{
+		"label": "Open Ptyxis",
+		"command": "/usr/bin/ptyxis",
+		"args": [
+			"--tab",
+			"-d",
+			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+		],
+		"use_new_terminal": false,
+		"allow_concurrent_runs": false,
+		"reveal": "never",
+		"hide": "always",
+		"shell": "system",
+		"show_summary": false,
+		"show_command": false
+	},
+	{
+		"label": "Open Nautilus",
+		"command": "/usr/bin/nautilus",
+		"args": [
+			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+		],
+		"use_new_terminal": false,
+		"allow_concurrent_runs": false,
+		"reveal": "never",
+		"hide": "always",
+		"shell": "system",
+		"show_summary": false,
+		"show_command": false
+	}
+]

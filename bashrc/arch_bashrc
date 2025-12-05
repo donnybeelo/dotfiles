@@ -1,0 +1,5 @@
+alias paru="yay"
+# alias yay="paru"
+alias i="yay -S"
+
+declare -A packageManagers=( ["AUR"]="yay -Syu --noconfirm" ["Flatpak"]="flatpak update -y")

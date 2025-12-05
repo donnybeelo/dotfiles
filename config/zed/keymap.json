@@ -1,0 +1,38 @@
+[
+	{
+		"context": "Workspace",
+		"bindings": {
+			"ctrl-alt-g": ["task::Spawn", { "task_name": "Open SourceGit" }],
+			"ctrl-r": "projects::OpenRecent",
+			"ctrl-alt-f": ["task::Spawn", { "task_name": "Open Nautilus" }]
+		}
+	},
+	{
+		"bindings": {
+			"ctrl-alt-i": "workspace::ToggleRightDock"
+		}
+	},
+	{
+		"context": "(Workspace || Pane)",
+		"bindings": {
+			"ctrl-alt-t": [
+				"task::Spawn",
+				{
+					"task_name": "Open Ptyxis"
+				}
+			]
+		}
+	},
+	{
+		"context": "(Editor && edit_prediction_conflict)",
+		"bindings": {
+			"tab": "editor::AcceptEditPrediction"
+		}
+	},
+ {
+  "context": "(Editor && extension == mdx)",
+  "bindings": {
+   "ctrl-shift-v": "markdown::OpenPreview"
+  }
+ }
+]
