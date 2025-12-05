@@ -12,5 +12,6 @@ To clone and keep up to date (this will symlink the files from this repo instead
 ```sh
 git clone https://github.com/donnybeelo/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
+chmod +x install.sh
 ./install.sh
 ```
