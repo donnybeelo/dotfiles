@@ -11,7 +11,7 @@ if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	distro="arch"
 	sudo pacman -Sy --noconfirm git curl flatpak base-devel emacs-nox xdg-utils
 	# Install yay AUR helper
-	sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" ]]; then
 	distro="debian"
 	sudo apt update && sudo apt install -y git curl flatpak build-essential emacs-nox xdg-utils
