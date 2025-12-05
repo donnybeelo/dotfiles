@@ -4,17 +4,18 @@
 # This script installs the dotfiles to your home directory.
 
 filesToIgnore=("README.md" "install.sh" ".gitignore")
+packagesToInstall="git curl flatpak emacs-nox xdg-utils unzip bash-completion"
 
 distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 
 if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	distro="arch"
-	sudo pacman -Sy --noconfirm git curl flatpak base-devel emacs-nox xdg-utils unzip
+	sudo pacman -Sy --noconfirm base-devel ${packagesToInstall}
 	# Install yay AUR helper
 	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" ]]; then
 	distro="debian"
-	sudo apt update && sudo apt install -y git curl flatpak build-essential emacs-nox xdg-utils unzip
+	sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
 else
 	echo "Unsupported distribution. Exiting."
 	exit 1
