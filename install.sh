@@ -9,12 +9,12 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 
 if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	distro="arch"
-	sudo pacman -Sy --noconfirm git curl flatpak base-devel emacs-nox xdg-utils
+	sudo pacman -Sy --noconfirm git curl flatpak base-devel emacs-nox xdg-utils unzip
 	# Install yay AUR helper
 	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" ]]; then
 	distro="debian"
-	sudo apt update && sudo apt install -y git curl flatpak build-essential emacs-nox xdg-utils
+	sudo apt update && sudo apt install -y git curl flatpak build-essential emacs-nox xdg-utils unzip
 else
 	echo "Unsupported distribution. Exiting."
 	exit 1
@@ -60,7 +60,7 @@ fi
 # Add custom bashrc sourcing if not already present
 if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
 	echo "source \$HOME/.custom_bashrc" >> "$HOME/.bashrc"
-fi	
+fi
 
 [ ! -d "$HOME/.complete_alias" ] && git clone --depth 1 https://github.com/cykerway/complete-alias.git ~/.complete_alias
 
