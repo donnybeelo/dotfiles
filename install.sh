@@ -60,7 +60,7 @@ fi
 
 # Add custom bashrc sourcing if not already present
 if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
-	echo "source \$HOME/.custom_bashrc" >> "$HOME/.bashrc"
+	echo "\n# donnybeelo's custom aliases & functions\nsource \$HOME/.custom_bashrc" >> "$HOME/.bashrc"
 fi
 
 [ ! -d "$HOME/.complete_alias" ] && git clone --depth 1 https://github.com/cykerway/complete-alias.git ~/.complete_alias
