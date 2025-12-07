@@ -10,7 +10,7 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 
 if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	distro="arch"
-	sudo pacman -Sy --noconfirm base-devel ${packagesToInstall}
+	sudo pacman -Sy --needed --noconfirm base-devel ${packagesToInstall}
 	# Install yay AUR helper
 	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" ]]; then
