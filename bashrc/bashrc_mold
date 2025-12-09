@@ -86,7 +86,6 @@ update() {
 		echo "Update command already running! If you believe this to be false, consider removing the $LOCK file."
 		while true; do
 			read -p "Remove lock file and update anyway? [y/N]: " yn
-			echo ""
 			case $yn in
 				[Nn]*|"" ) return 1;;
 				[Yy]* ) rm $LOCK; break;;
@@ -96,9 +95,9 @@ update() {
 	touch $LOCK
 
 	for manager in "${!packageManagers[@]}"; do
-		echo "Updating $manager packages…"
-		eval "${packageManagers[$manager]}"
 		echo ""
+		echo "----< Updating $manager packages… >----"
+		eval "${packageManagers[$manager]}"
 	done
 
 	rm $LOCK

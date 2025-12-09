@@ -29,12 +29,12 @@
 	"agent": {
 		"inline_assistant_model": {
    "provider": "copilot_chat",
-   "model": "claude-sonnet-4.5"
+   "model": "claude-haiku-4.5"
   },
   "default_profile": "write",
 		"default_model": {
 			"provider": "copilot_chat",
-			"model": "gemini-3-pro-preview"
+			"model": "claude-sonnet-4.5"
 		},
 		"enabled": true,
 		"button": true,
