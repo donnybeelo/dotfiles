@@ -29,10 +29,16 @@
 			"tab": "editor::AcceptEditPrediction"
 		}
 	},
- {
-  "context": "(Editor && extension == mdx)",
-  "bindings": {
-   "ctrl-shift-v": "markdown::OpenPreview"
-  }
- }
+	{
+		"context": "(Editor && extension == mdx)",
+		"bindings": {
+			"ctrl-shift-v": "markdown::OpenPreview"
+		}
+	},
+	{
+		"context": "!ContextEditor > (Editor && mode == full)",
+		"bindings": {
+			"ctrl-i": "assistant::InlineAssist"
+		}
+	}
 ]
