@@ -40,5 +40,11 @@
 		"bindings": {
 			"ctrl-i": "assistant::InlineAssist"
 		}
+	},
+	{
+		"context": "!ContextEditor > (Editor && mode == full)",
+		"bindings": {
+			"ctrl-enter": null
+		}
 	}
 ]
