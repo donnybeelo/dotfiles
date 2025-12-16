@@ -13,7 +13,7 @@ if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	sudo pacman -Sy --needed --noconfirm base-devel ${packagesToInstall}
 	# Install yay AUR helper
 	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
-elif [[ "$distro" == "ubuntu" || "$distro" == "debian" ]]; then
+elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
 	distro="debian"
 	sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
 else
