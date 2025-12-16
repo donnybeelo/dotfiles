@@ -5,7 +5,7 @@ This repository contains my personal dotfiles for configuring various applicatio
 To run once and forget (this will make a temp directory, copy the files over, and clean up after):
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/donnybeelo/dotfiles/main/install.sh)"
+curl -fsSL https://raw.githubusercontent.com/donnybeelo/dotfiles/main/install.sh | bash
 ```
 To clone and keep up to date (this will symlink the files from this repo instead):
 
