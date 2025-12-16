@@ -10,12 +10,16 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 
 if [[ "$distro" == "arch" || "$distro" == "manjaro" ]]; then
 	distro="arch"
-	sudo pacman -Sy --needed --noconfirm base-devel ${packagesToInstall}
-	# Install yay AUR helper
-	git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+	if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
+		sudo pacman -Sy --needed --noconfirm base-devel ${packagesToInstall}
+		# Install yay AUR helper
+		git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+	fi
 elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian" ]]; then
 	distro="debian"
-	sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
+	if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
+		sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
+	fi
 else
 	echo "Unsupported distribution. Exiting."
 	exit 1
