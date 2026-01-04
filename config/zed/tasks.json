@@ -14,12 +14,11 @@
 		"show_command": false
 	},
 	{
-		"label": "Open Ptyxis",
-		"command": "/usr/bin/ptyxis",
+		"label": "Open Terminal",
+		"command": "/usr/bin/xdg-terminal-exec",
 		"args": [
-			"--tab",
-			"-d",
-			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+			"/bin/sh -c",
+			"'cd $(if [ -f $ZED_WORKTREE_ROOT ]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi); bash'"
 		],
 		"use_new_terminal": false,
 		"allow_concurrent_runs": false,
