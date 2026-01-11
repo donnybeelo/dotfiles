@@ -104,4 +104,22 @@ update() {
 	echo -e "\nDone!"
 }
 
+modify() {
+	if [ $# -eq 0 ]; then
+		echo "No argument supplied"
+		return 1
+	elif [[ $# -eq 1 ]]; then
+		open $(which "$1")
+	else
+		"$2" $(which "$1")
+	fi
+}
+_modify_complete() {
+	local cur
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	COMPREPLY=( $(compgen -c -- "$cur") )
+}
+
+complete -F _modify_complete modify
+
 source ~/.extra_bashrc
