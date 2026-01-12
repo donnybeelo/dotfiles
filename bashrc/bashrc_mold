@@ -54,6 +54,7 @@ complete -F _complete_alias i
 
 clone() {
 	cd ~/git
+	local args src dest
 	args=""; src=""; dest=""
 	for arg; do
 		if [[ $arg =~ ^- ]]; then
@@ -81,28 +82,57 @@ clone() {
 }
 
 update() {
-	LOCK=/var/tmp/updatelock
-	if [ -f $LOCK ]; then
-		echo "Update command already running! If you believe this to be false, consider removing the $LOCK file."
+	UPDATE_LOCK=/var/tmp/updatelock
+	if [ -f $UPDATE_LOCK ]; then
+		echo "Update command already running! If you believe this to be false, consider removing the $UPDATE_LOCK file."
 		while true; do
 			read -p "Remove lock file and update anyway? [y/N]: " yn
 			case $yn in
 				[Nn]*|"" ) return 1;;
-				[Yy]* ) rm $LOCK; break;;
+				[Yy]* ) rm $UPDATE_LOCK; break;;
 			esac
 		done
 	fi
-	touch $LOCK
+	touch $UPDATE_LOCK
+	
+	if [ $# -eq 0 ]; then
+		for manager in "${!packageManagers[@]}"; do
+			echo "----< Updating $manager packages… >----"
+			eval "${packageManagers[$manager]}"
+			echo ""
+		done
+	else
+        for input in "$@"; do
+            local found=false
+            local search=${input,,} 
 
-	for manager in "${!packageManagers[@]}"; do
-		echo ""
-		echo "----< Updating $manager packages… >----"
-		eval "${packageManagers[$manager]}"
-	done
+            for manager in "${!packageManagers[@]}"; do
+                if [[ "${manager,,}" == "$search" ]]; then
+                    echo ""
+                    echo "----< Updating $manager packages… >----"
+                    eval "${packageManagers[$manager]}"
+                    found=true
+                    break
+                fi
+            done
 
-	rm $LOCK
-	echo -e "\nDone!"
+            if [ "$found" = false ]; then
+                echo "Package manager '$input' not found."
+            fi
+        done
+    fi
+
+    rm $UPDATE_LOCK
+    echo -e "\nDone!"
 }
+_update_complete() {
+	local cur words
+	cur=$(printf %s "${COMP_WORDS[COMP_CWORD]}" | tr [:upper:] [:lower:])
+	words=$(printf %s "${!packageManagers[*]}" | tr [:upper:] [:lower:])
+	
+	COMPREPLY=( $(compgen -W "$words" -- "$cur") )
+}
+complete -F _update_complete update
 
 modify() {
 	if [ $# -eq 0 ]; then
@@ -119,7 +149,6 @@ _modify_complete() {
 	cur="${COMP_WORDS[COMP_CWORD]}"
 	COMPREPLY=( $(compgen -c -- "$cur") )
 }
-
 complete -F _modify_complete modify
 
 source ~/.extra_bashrc
