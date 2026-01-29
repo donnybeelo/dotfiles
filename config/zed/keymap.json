@@ -2,7 +2,6 @@
 	{
 		"context": "Workspace",
 		"bindings": {
-			"ctrl-alt-g": ["task::Spawn", { "task_name": "Open SourceGit" }],
 			"ctrl-r": "projects::OpenRecent",
 			"ctrl-alt-f": ["task::Spawn", { "task_name": "Open Nautilus" }]
 		}
@@ -15,6 +14,7 @@
 	{
 		"context": "(Workspace || Pane)",
 		"bindings": {
+			"ctrl-alt-g": ["task::Spawn", { "task_name": "Open SourceGit" }],
 			"ctrl-alt-t": [
 				"task::Spawn",
 				{

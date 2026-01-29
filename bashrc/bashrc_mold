@@ -17,32 +17,32 @@ alias expo='npx expo'
 export EDITOR=emacs
 
 mkd() {
-    str="$*"
-    mkdir -p "$str"
-    cd "$str"
+	str="$*"
+	mkdir -p "$str"
+	cd "$str"
 }
 
 repo() {
-    cd ~/git/"$1"
+	cd ~/git/"$1"
 }
 
 _repo_complete() {
-    local cur base_dir
-    cur="${COMP_WORDS[1]}"
-    base_dir=~/git/
+	local cur base_dir
+	cur="${COMP_WORDS[1]}"
+	base_dir=~/git/
 
-    # Generate a list of subdirectories without the full path
-    COMPREPLY=( $(compgen -W "$(find "$base_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)" -- "$cur") )
+	# Generate a list of subdirectories without the full path
+	COMPREPLY=( $(compgen -W "$(find "$base_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)" -- "$cur") )
 }
 
 complete -F _repo_complete repo
 
 DaySuffix() {
   case `date +%-d` in
-    1|21|31) echo "st";;
-    2|22)    echo "nd";;
-    3|23)    echo "rd";;
-    *)       echo "th";;
+	1|21|31) echo "st";;
+	2|22)    echo "nd";;
+	3|23)    echo "rd";;
+	*)       echo "th";;
   esac
 }
 
@@ -76,7 +76,7 @@ clone() {
 		cd "$dest"
 	else
 		lastarg="$(basename $src)"
-	    lastarg="${lastarg%.git}"
+		lastarg="${lastarg%.git}"
 		cd "$lastarg"
 	fi
 }
@@ -97,33 +97,44 @@ update() {
 	
 	if [ $# -eq 0 ]; then
 		for manager in "${!packageManagers[@]}"; do
-			echo "----< Updating $manager packages… >----"
+			local string="Updating $manager packages…"
+			echo " $string"
+			for i in $(seq 1 $((${#string} + 2))); do 
+				echo -n "‾"
+			done
+			echo ""
 			eval "${packageManagers[$manager]}"
 			echo ""
 		done
 	else
-        for input in "$@"; do
-            local found=false
-            local search=${input,,} 
+		for input in "$@"; do
+			local found=false
+			local search=${input,,} 
 
-            for manager in "${!packageManagers[@]}"; do
-                if [[ "${manager,,}" == "$search" ]]; then
-                    echo ""
-                    echo "----< Updating $manager packages… >----"
-                    eval "${packageManagers[$manager]}"
-                    found=true
-                    break
-                fi
-            done
+			for manager in "${!packageManagers[@]}"; do
+				if [[ "${manager,,}" == "$search" ]]; then
+					local string="Updating $manager packages…"
+					echo " $string"
+					for i in $(seq 1 $((${#string} + 2))); do 
+						echo -n "‾"
+					done
+					echo ""
+					eval "${packageManagers[$manager]}"
+					echo ""
+					found=true
+					break
+				fi
+			done
 
-            if [ "$found" = false ]; then
-                echo "Package manager '$input' not found."
-            fi
-        done
-    fi
+			if [ "$found" = false ]; then
+				echo "Package manager '$input' not found."
+			fi
+		done
+	fi
 
-    rm $UPDATE_LOCK
-    echo -e "\nDone!"
+	rm $UPDATE_LOCK
+	echo " Done!"
+	echo "‾‾‾‾‾‾‾"
 }
 _update_complete() {
 	local cur words
