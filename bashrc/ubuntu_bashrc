@@ -1,4 +1,5 @@
 alias i="sudo apt install"
+alias autoremove='sudo apt autoremove'
 
 update-appimages() {
 	local updates=$(flatpak run it.mijorus.gearlever --list-updates)
