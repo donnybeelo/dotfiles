@@ -76,15 +76,26 @@ if ! command -v bun &> /dev/null; then
 fi
 
 if [ ! -L /usr/bin/npm ] || [ "$(readlink /usr/bin/npm)" != "$(command -v bun)" ]; then
- sudo ln -sfn "$(command -v bun)" /usr/bin/npm
+	echo "npm not found, creating symlink to bun..."
+	sudo ln -sfn "$(command -v bun)" /usr/bin/npm
 fi
 
-if [ ! -L /usr/bin/npx ] || [ "$(readlink /usr/bin/npx)" != "$(command -v bunx)" ]; then
- sudo ln -sfn "$(command -v bunx)" /usr/bin/npx
+if ! command -v npx &> /dev/null; then
+	echo "npx not found, creating wrapper for bunx..."
+	cat << 'EOF' | sudo tee /usr/bin/npx > /dev/null
+#!/bin/bash
+exec bunx "$@"
+EOF
+	sudo chmod +x /usr/bin/npx
 fi
 
-if [ ! -L /usr/bin/expo ] || [ "$(readlink /usr/bin/expo)" != "/usr/bin/npx" ]; then
- sudo ln -sfn /usr/bin/npx /usr/bin/expo
+if ! command -v expo &> /dev/null; then
+	echo "expo not found, creating wrapper for bunx expo..."
+	cat << 'EOF' | sudo tee /usr/bin/expo > /dev/null
+#!/bin/bash
+exec bunx expo "$@"
+EOF
+	sudo chmod +x /usr/bin/expo
 fi
 
 # Clean up if we cloned to tmp
