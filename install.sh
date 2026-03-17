@@ -72,6 +72,19 @@ fi
 if ! command -v bun &> /dev/null; then
 	echo "Bun not found, installing Bun..."
 	curl -fsSL https://bun.com/install | bash
+	bun i -g node
+fi
+
+if [ ! -L /usr/bin/npm ] || [ "$(readlink /usr/bin/npm)" != "$(command -v bun)" ]; then
+ sudo ln -sfn "$(command -v bun)" /usr/bin/npm
+fi
+
+if [ ! -L /usr/bin/npx ] || [ "$(readlink /usr/bin/npx)" != "$(command -v bunx)" ]; then
+ sudo ln -sfn "$(command -v bunx)" /usr/bin/npx
+fi
+
+if [ ! -L /usr/bin/expo ] || [ "$(readlink /usr/bin/expo)" != "/usr/bin/npx" ]; then
+ sudo ln -sfn /usr/bin/npx /usr/bin/expo
 fi
 
 # Clean up if we cloned to tmp

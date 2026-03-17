@@ -11,6 +11,7 @@
 		"provider": "copilot",
 	},
 	"git_panel": {
+		"tree_view": false,
 		"sort_by_path": false,
 	},
 	"agent_ui_font_size": 16.0,
@@ -30,14 +31,13 @@
 		"inline_assistant_model": {
 			"provider": "copilot_chat",
 			"model": "gpt-5.3-codex",
+			"enable_thinking": false,
 		},
-		"default_profile": "write",
 		"default_model": {
 			"provider": "copilot_chat",
 			"model": "gpt-5.3-codex",
+			"enable_thinking": false,
 		},
-		"enabled": true,
-		"button": true,
 		"model_parameters": [],
 	},
 	"scroll_sensitivity": 2.0,
@@ -68,7 +68,7 @@
 	},
 	"agent_servers": {
 		"gemini": {
-			"ignore_system_version": true,
+			"type": "registry",
 		},
 	},
 	"languages": {
