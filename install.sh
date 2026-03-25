@@ -72,7 +72,19 @@ fi
 if ! command -v bun &> /dev/null; then
 	echo "Bun not found, installing Bun..."
 	curl -fsSL https://bun.com/install | bash
-	bun i -g node
+fi
+
+if ! command -v node &> /dev/null; then
+	echo "node not found, creating wrapper for bun..."
+	cat << 'EOF' | sudo tee /usr/bin/node > /dev/null
+#!/bin/bash
+if [[ "$#" -eq 0 ]]; then
+	bun repl
+else
+	bun "$@"
+fi
+EOF
+	sudo chmod +x /usr/bin/node
 fi
 
 if [ ! -L /usr/bin/npm ] || [ "$(readlink /usr/bin/npm)" != "$(command -v bun)" ]; then
