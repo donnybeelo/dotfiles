@@ -162,4 +162,12 @@ _modify_complete() {
 }
 complete -F _modify_complete modify
 
+sgit() {
+	if [ $# -eq 0 ]; then
+		( sourcegit . & )
+	else
+		( sourcegit "$@" & )
+	fi
+}
+
 source ~/.extra_bashrc

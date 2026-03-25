@@ -79,9 +79,9 @@ if ! command -v node &> /dev/null; then
 	cat << 'EOF' | sudo tee /usr/bin/node > /dev/null
 #!/bin/bash
 if [[ "$#" -eq 0 ]]; then
-	bun repl
+	exec bun repl
 else
-	bun "$@"
+	exec bun "$@"
 fi
 EOF
 	sudo chmod +x /usr/bin/node
