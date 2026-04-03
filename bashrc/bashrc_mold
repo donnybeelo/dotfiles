@@ -11,8 +11,6 @@ alias ipconfig='ifconfig'
 alias sudo='sudo '
 alias open="xdg-open 2>/dev/null"
 
-export EDITOR=emacs
-
 mkd() {
 	str="$*"
 	mkdir -p "$str"
@@ -80,24 +78,30 @@ clone() {
 
 update() {
 	UPDATE_LOCK=/var/tmp/updatelock
-	if [ -f $UPDATE_LOCK ]; then
+
+	cleanup_update_lock() {
+		rm -f "$UPDATE_LOCK"
+	}
+	trap cleanup_update_lock EXIT INT TERM HUP
+
+	if [ -f "$UPDATE_LOCK" ]; then
 		echo "Update command already running! If you believe this to be false, consider removing the $UPDATE_LOCK file."
 		while true; do
 			read -p "Remove lock file and update anyway? [y/N]: " yn
 			case $yn in
-				[Nn]*|"" ) return 1;;
-				[Yy]* ) rm $UPDATE_LOCK; break;;
+				[Nn]*|"" ) trap - EXIT INT TERM HUP; return 1;;
+				[Yy]* ) rm -f "$UPDATE_LOCK"; break;;
 			esac
 		done
 	fi
-	touch $UPDATE_LOCK
-	
+	touch "$UPDATE_LOCK"
+
 	echo ""
 	if [ $# -eq 0 ]; then
 		for manager in "${!packageManagers[@]}"; do
 			local string="Updating $manager packages…"
 			echo " $string"
-			for i in $(seq 1 $((${#string} + 2))); do 
+			for i in $(seq 1 $((${#string} + 2))); do
 				echo -n "‾"
 			done
 			echo ""
@@ -107,13 +111,13 @@ update() {
 	else
 		for input in "$@"; do
 			local found=false
-			local search=${input,,} 
+			local search=${input,,}
 
 			for manager in "${!packageManagers[@]}"; do
 				if [[ "${manager,,}" == "$search" ]]; then
 					local string="Updating $manager packages…"
 					echo " $string"
-					for i in $(seq 1 $((${#string} + 2))); do 
+					for i in $(seq 1 $((${#string} + 2))); do
 						echo -n "‾"
 					done
 					echo ""
@@ -130,7 +134,8 @@ update() {
 		done
 	fi
 
-	rm $UPDATE_LOCK
+	rm -f "$UPDATE_LOCK"
+	trap - EXIT INT TERM HUP
 	echo " Done!"
 	echo "‾‾‾‾‾‾‾"
 }
@@ -138,7 +143,7 @@ _update_complete() {
 	local cur words
 	cur=$(printf %s "${COMP_WORDS[COMP_CWORD]}" | tr [:upper:] [:lower:])
 	words=$(printf %s "${!packageManagers[*]}" | tr [:upper:] [:lower:])
-	
+
 	COMPREPLY=( $(compgen -W "$words" -- "$cur") )
 }
 complete -F _update_complete update
@@ -148,7 +153,7 @@ modify() {
 		echo "No argument supplied"
 		return 1
 	elif alias "$1" &>/dev/null; then
-		alias "$1" 
+		alias "$1"
 	elif [[ $# -eq 1 ]]; then
 		open $(which "$1")
 	else

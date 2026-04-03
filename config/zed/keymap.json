@@ -46,5 +46,17 @@
 		"bindings": {
 			"ctrl-enter": null
 		}
-	}
+	},
+ {
+  "context": "Editor && edit_prediction",
+  "bindings": {
+   "alt-right": "editor::AcceptNextWordEditPrediction"
+  }
+ },
+ {
+  "context": "Editor && edit_prediction",
+  "unbind": {
+   "alt-k": "editor::AcceptNextWordEditPrediction"
+  }
+ }
 ]
