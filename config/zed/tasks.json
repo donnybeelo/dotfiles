@@ -3,7 +3,8 @@
 		"label": "Open SourceGit",
 		"command": "/usr/bin/sourcegit",
 		"args": [
-			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)",
+			"&",
 		],
 		"use_new_terminal": false,
 		"allow_concurrent_runs": false,
@@ -11,14 +12,13 @@
 		"hide": "always",
 		"shell": "system",
 		"show_summary": false,
-		"show_command": false
+		"show_command": false,
 	},
 	{
 		"label": "Open Terminal",
 		"command": "/usr/bin/xdg-terminal-exec",
 		"args": [
-			"/bin/sh -c",
-			"'cd $(if [ -f $ZED_WORKTREE_ROOT ]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi); bash'"
+			"--dir=$(if [ -f $ZED_WORKTREE_ROOT ]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)",
 		],
 		"use_new_terminal": false,
 		"allow_concurrent_runs": false,
@@ -26,13 +26,13 @@
 		"hide": "always",
 		"shell": "system",
 		"show_summary": false,
-		"show_command": false
+		"show_command": false,
 	},
 	{
 		"label": "Open Nautilus",
 		"command": "/usr/bin/nautilus",
 		"args": [
-			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)"
+			"$(if [[ -f $ZED_WORKTREE_ROOT ]]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)",
 		],
 		"use_new_terminal": false,
 		"allow_concurrent_runs": false,
@@ -40,6 +40,6 @@
 		"hide": "always",
 		"shell": "system",
 		"show_summary": false,
-		"show_command": false
-	}
+		"show_command": false,
+	},
 ]
