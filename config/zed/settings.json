@@ -7,10 +7,20 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+	"outline_panel": {
+		"dock": "left",
+	},
+	"collaboration_panel": {
+		"dock": "left",
+	},
+	"project_panel": {
+		"dock": "left",
+	},
 	"edit_predictions": {
 		"provider": "copilot",
 	},
 	"git_panel": {
+		"dock": "left",
 		"tree_view": false,
 		"sort_by_path": false,
 	},
@@ -28,13 +38,15 @@
 		"max_scroll_history_lines": 1000000,
 	},
 	"agent": {
+		"dock": "right",
+		"sidebar_side": "right",
 		"inline_assistant_model": {
 			"provider": "copilot_chat",
 			"model": "gpt-5.4-mini",
 			"enable_thinking": false,
 		},
 		"default_model": {
-			"effort": "xhigh",
+			"effort": "medium",
 			"provider": "copilot_chat",
 			"model": "gpt-5.4-mini",
 		},
@@ -66,14 +78,18 @@
 		"dark": "Carbonfox - opaque",
 	},
 	"agent_servers": {
+		"github-copilot-cli": {
+			"type": "registry",
+		},
+		"pi-acp": {
+			"type": "registry",
+		},
 		"opencode": {
-   "favorite_config_option_values": {
-    "model": [
-     "github-copilot/gpt-5.4-mini/xhigh"
-    ]
-   },
-   "type": "registry"
-  },
+			"favorite_config_option_values": {
+				"model": ["github-copilot/gpt-5.4-mini/medium"],
+			},
+			"type": "registry",
+		},
 	},
 	"languages": {
 		"CSS": {
