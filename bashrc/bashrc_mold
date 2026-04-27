@@ -175,4 +175,17 @@ sgit() {
 	fi
 }
 
+export NVM_DIR="$HOME/.nvm"
+# Lazy load nvm
+nvm_lazy_load() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+nvm() { nvm_lazy_load; nvm "$@"; }
+node() { nvm_lazy_load; node "$@"; }
+npm() { nvm_lazy_load; npm "$@"; }
+npx() { nvm_lazy_load; npx "$@"; }
+
 source ~/.extra_bashrc

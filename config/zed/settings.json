@@ -75,7 +75,7 @@
 	"theme": {
 		"mode": "system",
 		"light": "One Light",
-		"dark": "Carbonfox - opaque",
+		"dark": "Carbonfox - blurred",
 	},
 	"agent_servers": {
 		"github-copilot-cli": {

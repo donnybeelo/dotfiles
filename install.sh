@@ -75,39 +75,13 @@ if ! command -v bun &> /dev/null; then
 fi
 
 if ! command -v node &> /dev/null; then
-	echo "node not found, creating wrapper for bun..."
-	cat << 'EOF' | sudo tee /usr/bin/node > /dev/null
-#!/bin/bash
-if [[ "$#" -eq 0 ]]; then
-	exec bun repl
-else
-	exec bun "$@"
-fi
-EOF
-	sudo chmod +x /usr/bin/node
-fi
+	echo "Node.js not found, installing Node.js via nvm..."
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+	source "$HOME/.nvm/nvm.sh"
+	nvm install --lts
+	# Remove nvm loader from bashrc if present
+	sed -i '/export NVM_DIR="\$(\[ -z "${XDG_CONFIG_HOME-}" \] && printf %s "${HOME}\/\.nvm" || printf %s "${XDG_CONFIG_HOME}\/nvm")"/d; /\[ -s "\$NVM_DIR\/nvm\.sh" \] && \\. "\$NVM_DIR\/nvm\.sh" # This loads nvm/d' "$HOME/.bashrc"
 
-if [ ! -L /usr/bin/npm ] || [ "$(readlink /usr/bin/npm)" != "$(command -v bun)" ]; then
-	echo "npm not found, creating symlink to bun..."
-	sudo ln -sfn "$(command -v bun)" /usr/bin/npm
-fi
-
-if ! command -v npx &> /dev/null; then
-	echo "npx not found, creating wrapper for bunx..."
-	cat << 'EOF' | sudo tee /usr/bin/npx > /dev/null
-#!/bin/bash
-exec bunx "$@"
-EOF
-	sudo chmod +x /usr/bin/npx
-fi
-
-if ! command -v expo &> /dev/null; then
-	echo "expo not found, creating wrapper for bunx expo..."
-	cat << 'EOF' | sudo tee /usr/bin/expo > /dev/null
-#!/bin/bash
-exec bunx expo "$@"
-EOF
-	sudo chmod +x /usr/bin/expo
 fi
 
 # Clean up if we cloned to tmp
