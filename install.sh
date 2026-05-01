@@ -4,7 +4,7 @@
 # This script installs the dotfiles to your home directory.
 
 filesToIgnore=("README.md" "install.sh" ".gitignore")
-packagesToInstall="git curl flatpak emacs-nox xdg-utils unzip bash-completion"
+packagesToInstall="git curl flatpak emacs-nox xdg-utils unzip bash-completion nodejs npm"
 
 distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 
@@ -72,16 +72,6 @@ fi
 if ! command -v bun &> /dev/null; then
 	echo "Bun not found, installing Bun..."
 	curl -fsSL https://bun.com/install | bash
-fi
-
-if ! command -v node &> /dev/null; then
-	echo "Node.js not found, installing Node.js via nvm..."
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
-	source "$HOME/.nvm/nvm.sh"
-	nvm install --lts
-	# Remove nvm loader from bashrc if present
-	sed -i '/export NVM_DIR="\$(\[ -z "${XDG_CONFIG_HOME-}" \] && printf %s "${HOME}\/\.nvm" || printf %s "${XDG_CONFIG_HOME}\/nvm")"/d; /\[ -s "\$NVM_DIR\/nvm\.sh" \] && \\. "\$NVM_DIR\/nvm\.sh" # This loads nvm/d' "$HOME/.bashrc"
-
 fi
 
 # Clean up if we cloned to tmp
