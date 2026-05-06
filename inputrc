@@ -1,2 +1,17 @@
 # Ctrl-Backspace: delete previous word
 "\C-H": backward-kill-word
+
+# Ctrl+Delete: delete next word
+"\e[3;5~": forward-kill-word
+
+# Alt+Backspace: delete from cursor to beginning of line
+"\e\177": backward-kill-line
+
+# Alt+Delete: delete from cursor to end of line
+"\e[3;3~": kill-line
+
+# Alt+Left: move cursor to beginning of line
+"\e[1;3D": beginning-of-line
+
+# Alt+Right: move cursor to end of line
+"\e[1;3C": end-of-line
