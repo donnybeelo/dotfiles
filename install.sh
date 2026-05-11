@@ -19,6 +19,7 @@ elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian
 	distro="debian"
 	if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
 		sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
+		sudo apt remove -y snap snapd
 	fi
 else
 	echo "Unsupported distribution. Exiting."

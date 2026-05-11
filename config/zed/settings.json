@@ -21,7 +21,7 @@
 	},
 	"git_panel": {
 		"dock": "left",
-		"tree_view": false,
+		"tree_view": true,
 		"sort_by_path": false,
 	},
 	"agent_ui_font_size": 16.0,
@@ -39,16 +39,20 @@
 	},
 	"agent": {
 		"dock": "right",
-		"sidebar_side": "right",
+		"sidebar_side": "left",
 		"inline_assistant_model": {
 			"provider": "copilot_chat",
 			"model": "gpt-5.4-mini",
 			"enable_thinking": false,
 		},
 		"default_model": {
+			"enable_thinking": true,
 			"effort": "medium",
 			"provider": "copilot_chat",
 			"model": "gpt-5.4-mini",
+		},
+		"tool_permissions": {
+			"default": "allow",
 		},
 	},
 	"scroll_sensitivity": 1.0,
