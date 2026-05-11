@@ -75,6 +75,21 @@ if ! command -v bun &> /dev/null; then
 	curl -fsSL https://bun.com/install | bash
 fi
 
+npx_path="$(command -v npx 2> /dev/null || true)"
+if [[ -n "$npx_path" ]] && grep -qx 'exec bunx "\$@"' "$npx_path"; then
+	:
+else
+	if [[ -z "$npx_path" ]]; then
+		npx_path="/usr/bin/npx"
+	fi
+	echo "Replacing npx with a bunx wrapper at $npx_path..."
+	cat << 'EOF' | sudo tee "$npx_path" > /dev/null
+#!/bin/bash
+exec bunx "$@"
+EOF
+	sudo chmod +x "$npx_path"
+fi
+
 # Clean up if we cloned to tmp
 if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	rm -rf /tmp/dotfiles
@@ -83,3 +98,5 @@ fi
 if [ ! -d "$HOME/git" ]; then
 	mkdir $HOME/git
 fi
+
+echo "Dotfiles installation complete!"
