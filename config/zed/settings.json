@@ -43,8 +43,26 @@
 		"font_size": 12.0,
 		"max_scroll_history_lines": 1000000,
 	},
+	"language_models": {
+	  "ollama": {
+	    "available_models": [
+	      {
+	        "name": "lfm2.5:latest",
+	        "max_tokens": 32768,
+	        "keep_alive": "1m",
+	        "supports_tools": true,
+	      },
+				{
+	        "name": "gemma4:12b",
+	        "max_tokens": 32768,
+	        "keep_alive": "1m",
+	        "supports_tools": true,
+	      },
+	    ],
+	  },
+	},
 	"agent": {
-		
+
 		"favorite_models": [
    {
     "provider": "ollama",
@@ -63,8 +81,7 @@
    },
    {
     "provider": "ollama",
-    "model": "lfm2.5:latest",
-    "enable_thinking": true
+    "model": "lfm2.5:latest"
    }
   ],
   "default_profile": "write",
@@ -76,10 +93,9 @@
 			"enable_thinking": false,
 		},
 		"default_model": {
-			"effort": "high",
-   "enable_thinking": true,
-			"provider": "copilot_chat",
-			"model": "gpt-5-mini",
+			"enable_thinking": true,
+			"provider": "ollama",
+			"model": "lfm2.5:latest",
 		},
 		"tool_permissions": {
 			"default": "allow",
