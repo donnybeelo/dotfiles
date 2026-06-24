@@ -1,1 +1,15 @@
+#!/usr/bin/env bash
+
+_gog_complete() {
+  local IFS=$'\n'
+  local completions
+  completions=$(gog __complete --cword "$COMP_CWORD" -- "${COMP_WORDS[@]}")
+  COMPREPLY=()
+  if [[ -n "$completions" ]]; then
+    COMPREPLY=( $completions )
+  fi
+}
+
+complete -F _gog_complete gog
+
 . ~/.complete_alias/complete_alias

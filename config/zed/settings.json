@@ -7,7 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-	"outline_panel": {
+ "format_on_save": "off",
+ "cli_default_open_behavior": "new_window",
+ "outline_panel": {
 		"dock": "left",
 	},
 	"collaboration_panel": {
@@ -17,7 +19,11 @@
 		"dock": "left",
 	},
 	"edit_predictions": {
-		"provider": "copilot",
+		"ollama": {
+   "max_output_tokens": 64,
+   "model": "gemma4:12b"
+  },
+  "provider": "copilot",
 	},
 	"git_panel": {
 		"dock": "left",
@@ -38,18 +44,42 @@
 		"max_scroll_history_lines": 1000000,
 	},
 	"agent": {
-		"dock": "right",
+		
+		"favorite_models": [
+   {
+    "provider": "ollama",
+    "model": "gemma4:latest",
+    "enable_thinking": true
+   },
+   {
+    "provider": "ollama",
+    "model": "gemma4:26b",
+    "enable_thinking": true
+   },
+   {
+    "provider": "ollama",
+    "model": "glm4:latest",
+    "enable_thinking": false
+   },
+   {
+    "provider": "ollama",
+    "model": "lfm2.5:latest",
+    "enable_thinking": true
+   }
+  ],
+  "default_profile": "write",
+  "dock": "right",
 		"sidebar_side": "left",
 		"inline_assistant_model": {
 			"provider": "copilot_chat",
-			"model": "gpt-5.4-mini",
+			"model": "gemini-3.1-pro-preview",
 			"enable_thinking": false,
 		},
 		"default_model": {
-			"enable_thinking": true,
-			"effort": "medium",
+			"effort": "high",
+   "enable_thinking": true,
 			"provider": "copilot_chat",
-			"model": "gpt-5.4-mini",
+			"model": "gpt-5-mini",
 		},
 		"tool_permissions": {
 			"default": "allow",
@@ -82,11 +112,26 @@
 		"dark": "Carbonfox - opaque",
 	},
 	"agent_servers": {
-		"github-copilot-cli": {
-			"type": "registry",
-		},
-		"pi-acp": {
-			"type": "registry",
+		"claude-acp": {
+   "default_config_options": {
+    "mode": "auto"
+   },
+   "type": "registry"
+  },
+  "github-copilot-cli": {
+   "default_config_options": {
+    "allow_all": "on",
+    "model": "auto"
+   },
+   "type": "registry"
+  },
+  "pi-acp": {
+			"favorite_models": [
+    "ollama/lfm2.5:latest"
+   ],
+   "default_mode": "low",
+   "default_model": "ollama/lfm2.5:latest",
+   "type": "registry",
 		},
 		"opencode": {
 			"favorite_config_option_values": {

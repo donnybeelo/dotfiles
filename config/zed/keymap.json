@@ -24,7 +24,7 @@
 		}
 	},
 	{
-		"context": "(Editor && edit_prediction_conflict)",
+		"context": "(Editor && (edit_prediction && (showing_completions || in_leading_whitespace)))",
 		"bindings": {
 			"tab": "editor::AcceptEditPrediction"
 		}
@@ -58,5 +58,16 @@
   "unbind": {
    "alt-k": "editor::AcceptNextWordEditPrediction"
   }
- }
+ },
+ {
+  "context": "CommitEditor",
+  "bindings": {
+   "alt-c": [
+    "task::Spawn",
+    {
+     "task_name": "Generate commit message from diff"
+    }
+   ]
+  }
+ },
 ]

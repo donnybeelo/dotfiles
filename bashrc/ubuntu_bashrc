@@ -8,6 +8,7 @@ update-appimages() {
 	if ! echo "$updates" | grep -q "No updates available"; then
 		echo "$updates" | awk '{print $1, $NF}' | while read -r app_name app_path; do
 		    if [ -n "$app_path" ]; then
+		    		echo ""
 		        echo "Updating ${app_name}…"
 		        fuser -k "$app_path" >/dev/null 2>&1
 		        flatpak run it.mijorus.gearlever --update "$app_path" -y
