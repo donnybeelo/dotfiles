@@ -1,14 +1,9 @@
 [
 	{
-		"context": "Workspace",
 		"bindings": {
+			"ctrl-alt-i": "workspace::ToggleRightDock",
 			"ctrl-r": "projects::OpenRecent",
 			"ctrl-alt-f": ["task::Spawn", { "task_name": "Open Nautilus" }]
-		}
-	},
-	{
-		"bindings": {
-			"ctrl-alt-i": "workspace::ToggleRightDock"
 		}
 	},
 	{
