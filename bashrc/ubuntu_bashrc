@@ -2,21 +2,4 @@ alias i="sudo apt install"
 alias autoremove='sudo apt autoremove -y'
 alias dbus-devkit='dbus-run-session gnome-shell --devkit --wayland'
 
-update-appimages() {
-	echo "Looking for updates..."
-	local updates=$(flatpak run it.mijorus.gearlever --list-updates)
-	if ! echo "$updates" | grep -q "No updates available"; then
-		echo "$updates" | awk '{print $1, $NF}' | while read -r app_name app_path; do
-		    if [ -n "$app_path" ]; then
-		    		echo ""
-		        echo "Updating ${app_name}…"
-		        fuser -k "$app_path" >/dev/null 2>&1
-		        flatpak run it.mijorus.gearlever --update "$app_path" -y
-		    fi
-		done
-	else
-		echo "No AppImage updates found."
-	fi
-}
-
-declare -A packageManagers=( ["apt"]="sudo apt update && sudo apt upgrade -y" ["Flatpak"]="flatpak update -y" ["Bun"]="bun upgrade && bun update -g --latest" ["AppImage"]="update-appimages")
+declare -A packageManagers=( ["apt"]="sudo apt update && sudo apt upgrade -y" ["Flatpak"]="flatpak update -y" ["Bun"]="bun upgrade && bun update -g --latest" ["AppImage"]="AppManager --update-all")

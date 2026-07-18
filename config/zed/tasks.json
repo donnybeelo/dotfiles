@@ -47,11 +47,7 @@
 	{
 		"label": "Generate commit message from diff",
 		"command": "~/Scripts/git-commit-msg",
-		"args": [
-			"-p",
-			"$ZED_WORKTREE_ROOT",
-			"&"
-		],
+		"args": ["-p", "$ZED_WORKTREE_ROOT", "&"],
 		"use_new_terminal": false,
 		"allow_concurrent_runs": false,
 		"reveal": "never",

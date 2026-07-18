@@ -20,6 +20,10 @@
 		"dock": "left",
 	},
 	"edit_predictions": {
+		"open_ai_compatible_api": {
+			"model": "haiku",
+			"api_url": "http://127.0.0.1:8787/v1",
+		},
 		"ollama": {
 			"max_output_tokens": 64,
 			"model": "gemma4:12b",
@@ -50,7 +54,7 @@
 				"api_url": "http://127.0.0.1:8787/v1",
 				"available_models": [
 					{
-						"name": "claude",
+						"name": "haiku",
 						"display_name": "Claude Code",
 						"max_tokens": 65536,
 					},
@@ -107,7 +111,7 @@
 		"default_model": {
 			"enable_thinking": false,
 			"provider": "claude",
-			"model": "claude",
+			"model": "haiku",
 		},
 		"tool_permissions": {
 			"default": "allow",
