@@ -20,6 +20,10 @@
 		"dock": "left",
 	},
 	"edit_predictions": {
+		"codestral": {
+			"api_url": "https://codestral.mistral.ai",
+		},
+		"allow_data_collection": "no",
 		"open_ai_compatible_api": {
 			"model": "haiku",
 			"api_url": "http://127.0.0.1:8787/v1",
@@ -28,7 +32,7 @@
 			"max_output_tokens": 64,
 			"model": "gemma4:12b",
 		},
-		"provider": "copilot",
+		"provider": "codestral",
 	},
 	"git_panel": {
 		"dock": "right",
@@ -178,6 +182,9 @@
 		},
 		"YAML": {
 			"hard_tabs": false,
+		},
+		"Plain Text": {
+			"show_edit_predictions": false,
 		},
 	},
 }

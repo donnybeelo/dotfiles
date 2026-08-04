@@ -1,0 +1,5 @@
+alias i="sudo dnf install"
+alias autoremove='sudo dnf autoremove -y'
+alias dbus-devkit='dbus-run-session gnome-shell --devkit --wayland'
+
+declare -A packageManagers=( ["dnf"]="sudo dnf upgrade -y" ["Flatpak"]="flatpak update -y" ["Bun"]="bun upgrade && bun update -g --latest" ["AppImage"]="AppManager --update-all")

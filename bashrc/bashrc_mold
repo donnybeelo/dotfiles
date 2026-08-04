@@ -191,4 +191,20 @@ node() { nvm_lazy_load; node "$@"; }
 npm() { nvm_lazy_load; npm "$@"; }
 npx() { nvm_lazy_load; npx "$@"; }
 
-source ~/.extra_bashrc
+# Pick the per-distro file at runtime rather than trusting the ~/.extra_bashrc symlink:
+# a shared /home across a dual boot can only point that symlink at one distro.
+# Falls back to ~/.extra_bashrc for copy-mode installs (no repo alongside).
+__distro=$(awk -F= '/^ID=/{gsub(/"/,"");print $2}' /etc/os-release 2>/dev/null)
+case "$__distro" in
+	arch | manjaro) __extra=arch_bashrc ;;
+	ubuntu | debian | raspbian) __extra=ubuntu_bashrc ;;
+	fedora | rhel | centos) __extra=fedora_bashrc ;;
+	*) __extra="" ;;
+esac
+__extra_dir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+if [[ -n "$__extra" && -f "$__extra_dir/$__extra" ]]; then
+	source "$__extra_dir/$__extra"
+elif [[ -f ~/.extra_bashrc ]]; then
+	source ~/.extra_bashrc
+fi
+unset __distro __extra __extra_dir

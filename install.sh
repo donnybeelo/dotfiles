@@ -21,6 +21,13 @@ elif [[ "$distro" == "ubuntu" || "$distro" == "debian" || "$distro" == "raspbian
 		sudo apt update && sudo apt install -y build-essential ${packagesToInstall}
 		sudo apt remove -y snap snapd
 	fi
+elif [[ "$distro" == "fedora" || "$distro" == "rhel" || "$distro" == "centos" ]]; then
+	distro="fedora"
+	if ! grep -q "source \$HOME/.custom_bashrc" "$HOME/.bashrc"; then
+		# nodejs is versioned on Fedora, so swap it for the current stream
+		sudo dnf group install -y development-tools
+		sudo dnf install -y --skip-unavailable ${packagesToInstall//nodejs npm/nodejs22 nodejs22-npm}
+	fi
 else
 	echo "Unsupported distribution. Exiting."
 	exit 1
@@ -53,6 +60,7 @@ if [[ "$DOTFILES_DIR" = "/tmp/dotfiles" ]]; then
 	case "$distro" in
 		"arch") cp /tmp/dotfiles/bashrc/arch_bashrc $HOME/.extra_bashrc ;;
 		"debian") cp /tmp/dotfiles/bashrc/ubuntu_bashrc $HOME/.extra_bashrc ;;
+		"fedora") cp /tmp/dotfiles/bashrc/fedora_bashrc $HOME/.extra_bashrc ;;
 	esac
 else
 	ln -sf $DOTFILES_DIR/config/* $HOME/.config/
@@ -60,6 +68,7 @@ else
 	case "$distro" in
 		"arch") ln -sf $DOTFILES_DIR/bashrc/arch_bashrc $HOME/.extra_bashrc ;;
 		"debian") ln -sf $DOTFILES_DIR/bashrc/ubuntu_bashrc $HOME/.extra_bashrc ;;
+		"fedora") ln -sf $DOTFILES_DIR/bashrc/fedora_bashrc $HOME/.extra_bashrc ;;
 	esac
 fi
 
