@@ -19,6 +19,7 @@
 		"command": "/usr/bin/xdg-terminal-exec",
 		"args": [
 			"--dir=$(if [ -f $ZED_WORKTREE_ROOT ]; then dirname $ZED_WORKTREE_ROOT; else echo $ZED_WORKTREE_ROOT; fi)",
+			"bash",
 			"&",
 		],
 		"use_new_terminal": false,
