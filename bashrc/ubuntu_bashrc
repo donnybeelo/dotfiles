@@ -2,4 +2,4 @@ alias i="sudo apt install"
 alias autoremove='sudo apt autoremove -y'
 alias dbus-devkit='dbus-run-session gnome-shell --devkit --wayland'
 
-declare -A packageManagers=( ["apt"]="sudo apt update && sudo apt upgrade -y" ["Flatpak"]="flatpak update -y" ["Bun"]="bun upgrade && bun update -g --latest" ["AppImage"]="AppManager --update-all")
+declare -A packageManagers=( ["apt"]="sudo apt update && sudo apt upgrade -y" ["Flatpak"]="flatpak update -y" ["Bun"]="bun upgrade && bun update -g --latest" ["AppImage"]="AppManager --update-all" ["firmware"]="sudo fwupdmgr refresh; sudo fwupdmgr update -y --no-reboot-check" )
